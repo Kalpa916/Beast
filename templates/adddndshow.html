@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block content %}
+<h4 class="alert alert-warning text-center">Students Information</h4>
+<div class="row">
+  <div class="col-sm-3">
+    <h4 class="alert alert-info text-center">Enter Students Register</h4>
+    <form  action="" method="post">
+    {% csrf_token %}
+    {{forms.as_p}}
+    <input type="submit" class="btn btn-primary" name=submit>
+    </form>
+    {% if messages %}
+
+    {% for message in messages %}
+    <span    {% if message.tags %} class="{{message.tags}}"{% endif %}>
+  {{message}}</span><!--for specifying css as per inside the MESSAGE_TAGS-->
+
+
+    {% endfor %}
+
+    {% endif %}
+
+  </div>
+  <div class="col-sm-9">
+    <h4 class="alert alert-info text-center">Show Students Information</h4>
+{% if students %}
+    <table class="table">
+
+    <thead>
+      <tr>
+        <th>id</th>
+        <th scope="col">Name</th>
+        <th scope="col">studentId</th>
+        <th scope="col">studentClass</th>
+        <th scope="col">StudentGuardiandName</th>
+        <th scope="col">StudentCollegeName</th>
+        <th scope="col">studentPasssword</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for st in students %}
+      <tr>
+        <td>{{st.id}}</td>
+        <td>{{st.studentName}}</td>
+        <td>{{st.studentId}}</td>
+        <td>{{st.studentClass}}</td>
+        <td>{{st.StudentGuardiandName}}</td>
+        <td>{{st.StudentCollegeName}}</td>
+        <td>{{st.studentPasssword}}</td>
+        <td>
+          <a href="{% url 'update_' st.id %}" class="btn-sm btn btn-warning">Edit</a>
+          <form  action="{% url 'delete_' st.id %}" method="post">
+            <input type="submit"  value="delete" class="btn btn-danger">{% csrf_token %}
+          </form>
+        </td>
+      </tr>
+  {% endfor %}
+    </tbody>
+
+  </table>
+  {% else %}
+<h4>no records</h4>
+{% endif %}
+
+    <h3>average={{average}}</h3>
+    <h3>Max{{max}}</h3>
+    <h3>min{{min}}</h3>
+    <h3>{{count}}</h3>
+    <h3>{{gg}}</h3>
+    <h3>{% for g in gg1 %}</h3>
+  {{g.StudentCollegeName}}
+    {% endfor %}
+</div>
+
+</div>
+    {% endblock content %}
