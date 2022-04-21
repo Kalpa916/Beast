@@ -89,6 +89,7 @@ def edit_data(request,id):
         user=StudebtRegistration.objects.get(pk=id)
         stk=StudentRegistration(instance=user)
     return render(request,'update.html',{'form23':stk})
+dd
 
 class Mview(View):
         name="Sonam"
